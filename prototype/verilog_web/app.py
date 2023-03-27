@@ -8,7 +8,6 @@ import sqlite3 as sql
 
 
 
-
 #home page
 @app.route("/")
 def home():
@@ -21,11 +20,9 @@ def wadden_buggy1():
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v", lines_to_write)
     all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
-    print(implicated_lines)
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     
     if request.method == "POST":
-        print("returning url")
         return redirect(url_for("wadden_buggy1"))
     else:
         return render_template("buggy_code.html", 
@@ -136,17 +133,20 @@ def run_cirfix(bug, source):
     if check_data(all_lines) == True:
         implicated_lines = fetch_implicated_lines(all_lines)
         output = [all_lines, implicated_lines]
+        print("check_data returns true")
+        print(output)
+        
         return output
     os.chdir("..")
     implicated_lines = subprocess.getoutput(f"python3 joshua.py {bug}")
     os.chdir("./verilog_web")
-    store_data(all_lines, implicated_lines)
     try:
         imp_index = implicated_lines.index("IMPLICATED LINES:") + 17
         implicated_lines = implicated_lines[imp_index:]
         implicated_lines = implicated_lines.splitlines()
     except:
         implicated_lines = []
+    store_data(all_lines, implicated_lines)
     output = [all_lines, implicated_lines]
     return output
 
@@ -155,7 +155,7 @@ def run_cirfix(bug, source):
 def store_data(all_lines, implicated_lines):
     conn = sql.connect('memoization.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO my_table (key_string, value_string) VALUES (?, ?)",
+    cursor.execute("INSERT INTO line_lookup (all_lines, implicated_lines) VALUES (?, ?)",
                    (str(all_lines), str(implicated_lines)))
     conn.commit()
     conn.close()
@@ -167,20 +167,18 @@ def store_data(all_lines, implicated_lines):
 def check_data(all_lines):
     conn = sql.connect('memoization.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT value_string FROM my_table WHERE key_string=?", (str(all_lines),))
+    cursor.execute("SELECT implicated_lines FROM line_lookup WHERE all_lines=?", (str(all_lines),))
     result = cursor.fetchone()
     if result:
-        stored_value_string = result[0]
-        if stored_value_string == str(all_lines):
-            return True
+        return True
     return False
 
 def fetch_implicated_lines(all_lines):
     conn = sql.connect('memoization.db')
     cursor = conn.cursor()
     key = str(all_lines)
-    query = "SELECT value_string FROM my_table WHERE key_string = ?"
+    query = "SELECT implicated_lines FROM line_lookup WHERE all_lines = ?"
     cursor.execute(query, (key,))
     result = cursor.fetchone()
-    implicated_lines = ast.literal_eval(result)
+    implicated_lines = eval(result[0])
     return implicated_lines
