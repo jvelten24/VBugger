@@ -31,7 +31,7 @@ from pyverilog.ast_code_generator.codegen import ASTCodeGenerator
 AST_CLASSES = []
 
 # replace hammada with your username
-f = open("/home/hammada/.local/lib/python3.6/site-packages/pyverilog/vparser/ast_classes.txt", "r")
+f = open("/home/jvelten/.local/lib/python3.6/site-packages/pyverilog/vparser/ast_classes.txt", "r")
 lines = f.readlines()
 for line in lines:
     line = line.strip()

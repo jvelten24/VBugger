@@ -6,6 +6,7 @@ import random
 import time 
 from datetime import datetime
 import math
+from collections import deque
 
 # genprog: Class Rep: you need to write your own class 
 # the next line can be removed after installation
@@ -315,6 +316,51 @@ class MutationOp(ASTCodeGenerator):
         for c in ast.children():
             if c: self.collect_lines_for_fl(c)
 
+
+
+    #this gets implicated lines as per the source code's file
+    #in the repository, not as per the src_code object
+    # def get_implicated_lines(self, ast):
+    #     lines = []
+    #     q = deque()
+    #     q.append(ast)
+    #     while q:
+    #         node = q.popleft()
+    #         if node.node_id in self.fault_loc_set:
+    #             lines.append(node.lineno)
+    #         else:
+    #             for c in node.children():
+    #                 q.append(c)
+    #     return lines
+
+
+    def get_implicated_lines(self, ast):
+        #if a node is in the fault loc set add its line to the 
+        #list of implicated lines
+        if ast.node_id in self.fault_loc_set:
+            self.implicated_lines.add(ast.lineno)
+            for c in ast.children():
+                self.implicated_lines.add(c.lineno)
+        #also if any of its children are in the
+        #fault loc set add it to implicated lines
+        for c in ast.children():
+            if c and c.node_id in self.fault_loc_set:
+                self.implicated_lines.add(ast.lineno)
+            if c:
+                #then recursively call this function on all children
+                self.get_implicated_lines(c)
+
+
+
+
+    #this is working now
+    def print_implicated_lines(self, lines, source_code):
+        with open(SRC_FILE) as f:
+            src_code_text = f.readlines()
+            for lineNum in lines:
+                #src_code_text is zero indexed, lineNum isn't
+                print(src_code_text[lineNum - 1])
+    
     """
     Gets a list of all nodes that can be deleted.
     """
@@ -599,7 +645,7 @@ class MutationOp(ASTCodeGenerator):
         p = random.random()
         if p <= 0.3:
             random.seed(inc_seed())
-            return random.choice(["increment_by_one", "decrement_by_one"])
+            return random.choice(["", "decrement_by_one"])
         elif p <= 0.6:
             random.seed(inc_seed())
             return random.choice(["negate_equality", "negate_inequality", "negate_ulnot"])
@@ -1086,9 +1132,15 @@ def main():
                             preprocess_include=PROJ_DIR.split(","),
                             preprocess_define=options.define)
 
-    ast.show()
+    ast.show()   #so this line prints out ast
+    #exit(1)
     src_code = codegen.visit(ast)
+    print("PRINTING SOURCE CODE")
     print(src_code)
+
+
+    
+
 
     print("\n\n")
 
@@ -1175,7 +1227,7 @@ def main():
         #popn.append(['insert(53,78)'])
 
         # seed initial population using repair templates
-        popn.extend(seed_popn(copy.deepcopy(ast), mutation_op, codegen, LOG, log_file))
+        #popn.extend(seed_popn(copy.deepcopy(ast), mutation_op, codegen, LOG, log_file))
 
         # print(popn)
 
@@ -1214,26 +1266,50 @@ def main():
                     tmp_mismatch_set = copy.deepcopy(mismatch_set)
                     print()
                     mutation_op.get_fault_loc_targets(parent_ast, tmp_mismatch_set, uniq_headers) # compute fault localization for the parent
-                    print("Initial Fault Localization:", str(mutation_op.fault_loc_set))
+                    #find implicated lines
+                    mutation_op.collect_lines_for_fl(parent_ast)
+                    print("Initial Fault Localization Implicated Nodes:", str(mutation_op.fault_loc_set))
+                    #print out implicated lines
+                    print("Initial Fault Localization Implicated Lines:", str(mutation_op.implicated_lines), "\n")
                     while len(mutation_op.new_vars_in_fault_loc) > 0:
                         new_mismatch_set = set(mutation_op.new_vars_in_fault_loc.values())
                         print("New vars in fault loc:", new_mismatch_set)
                         mutation_op.new_vars_in_fault_loc = dict()
                         tmp_mismatch_set = tmp_mismatch_set.union(new_mismatch_set)
                         mutation_op.get_fault_loc_targets(parent_ast, tmp_mismatch_set, uniq_headers)
-                        print("Fault Localization:", str(mutation_op.fault_loc_set))
+                        #update set of implicated lines
+                        mutation_op.collect_lines_for_fl(parent_ast)
+                        print("Initial Fault Localization Implicated Nodes:", str(mutation_op.fault_loc_set))
+                        #print out implicated lines
+                        print("Fault Localization Implicated Lines:", str(mutation_op.implicated_lines), "\n")
+                    #trial printing of implicated lines here
+                    print("PRINTING OUT IMPLICATED LINES")
+                    #implicated_lines = mutation_op.get_implicated_lines(parent_ast)
+                    mutation_op.get_implicated_lines(parent_ast)
+                    mutation_op.print_implicated_lines(mutation_op.implicated_lines, src_code)
+                    #mutation_op.print_implicated_lines(implicated_lines, src_code)
+                    print("ENDING IMPLICATED LINES")
+                    
+
+                
                     print("Final mismatch set:", tmp_mismatch_set)
-                    print("Final Fault Localization:", str(mutation_op.fault_loc_set))
-                    print(len(mutation_op.fault_loc_set))
+                    #update set of implicated lines
+                    mutation_op.collect_lines_for_fl(parent_ast)
+                    print("Final Fault Localization Implicated Nodes:", str(mutation_op.fault_loc_set))
+                    print("Final Fault Localization Implicated Lines:", str(mutation_op.implicated_lines))
+                    print("Number of implicated nodes: ", len(mutation_op.fault_loc_set))
+                    print("Number of implicated lines: ", len(mutation_op.implicated_lines))
                     # print(mutation_op.stoplist)
                     # print(mutation_op.wires_brought_in)
                 
-                # exit(1)
+                exit(1)
 
                 mutation_op.implicated_lines = set()
                 mutation_op.collect_lines_for_fl(parent_ast)
                 print("Lines implicated by FL: %s" % str(mutation_op.implicated_lines))
                 print("Number of lines implicated by FL: %d" % len(mutation_op.implicated_lines))
+
+                #exit(1)
 
                 # extended_fl = extended_fl_for_study(mutation_op.implicated_lines, 5)
                 # print("Lines in extended FL: %s" % str(extended_fl))

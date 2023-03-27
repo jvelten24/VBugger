@@ -1,0 +1,82 @@
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h1{
+    padding: 20px 20px 20px 0;
+    color: rgba(245, 245, 245, 0.8);
+}
+
+label {
+    color: rgba(245, 245, 245, 0.8);
+}
+
+body{
+    background-color: rgb(30, 33, 36);
+
+}
+
+textarea {
+    color: white;
+}
+
+.implicated {
+    color: red;
+}
+
+
+img{
+    width: 800px;
+    height: 500px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#verilog_text{
+    border: 2px solid white;
+    overflow-y: auto;
+    height: 400px;
+    color: white;
+    counter-reset: linenumbers;
+}
+
+p{
+    white-space: pre-wrap;
+}
+
+  #verilog_text p::before {
+    counter-increment: linenumbers;
+    content: counter(linenumbers) ". ";
+    display: inline-block;
+    width: 30px;
+    margin-right: 5px;
+    text-align: right;
+    color: gray;
+  }
+  #verilog_text .implicated {
+    background-color: yellow;
+  }
+  #verilog_text span[contenteditable="true"] {
+    outline: none;
+  }
+
+  input{
+    background-color: rgb(30, 33, 36);
+    color: white;
+    width: 500px;
+    border: none;
+    outline: none;
+  }
+
+#consent-form {
+    color: white;
+}
+
+.roman{
+    list-style-type: lower-roman;
+}

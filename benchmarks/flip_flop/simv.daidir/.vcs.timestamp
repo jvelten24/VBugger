@@ -1,5 +1,5 @@
 0 
-29
+28
 +vc
 -Mamsrun=
 -Masflags=
@@ -26,16 +26,19 @@
 -picarchive
 -sverilog
 /usr/caen/vcs-2017.12-SP2-1/linux64/bin/vcs1
-sys_defs.vh
-tff.v
 tff_tb.v
-29
-sysc_uni_pwd=/home/hammada/projects/verilog_repair/benchmarks/flip_flop
+tff_wadden_buggy1.v
+39
+sysc_uni_pwd=/home/jvelten/projects/verilog_repair/benchmarks/flip_flop
 _LMFILES_=/usr/caen/misc/modules/vcs/2017.12-SP2-1
-ZSH=/home/hammada/.oh-my-zsh
-XDG_SESSION_ID=9681
-XDG_RUNTIME_DIR=/run/user/1001
-XDG_DATA_DIRS=/home/hammada/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+XDG_SESSION_ID=48532
+XDG_RUNTIME_DIR=/run/user/25165
+XDG_DATA_DIRS=/home/jvelten/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+VSCODE_IPC_HOOK_CLI=/run/user/25165/vscode-ipc-e03d9b55-5b64-47cc-8993-dea323b48c93.sock
+VSCODE_GIT_IPC_HANDLE=/run/user/25165/vscode-git-4911e6a4db.sock
+VSCODE_GIT_ASKPASS_NODE=/home/jvelten/.vscode-server/bin/e8a3071ea4344d9d48ef8a4df2c097372b0c5161/node
+VSCODE_GIT_ASKPASS_MAIN=/home/jvelten/.vscode-server/bin/e8a3071ea4344d9d48ef8a4df2c097372b0c5161/extensions/git/dist/askpass-main.js
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
 VMR_MODE_FLAG=64
 VCS_MODE_FLAG=64
 VCS_HOME=/usr/caen/vcs-2017.12-SP2-1
@@ -44,30 +47,35 @@ VCS_ARG_ADDED_FOR_TMP=1
 VCS_ARCH=linux64
 UNAME=/bin/uname
 TOOL_HOME=/usr/caen/vcs-2017.12-SP2-1/linux64
-SSH_TTY=/dev/pts/0
-SSH_CONNECTION=68.49.109.47 36784 141.212.106.158 22
-SSH_CLIENT=68.49.109.47 36784 22
+TERM_PROGRAM_VERSION=1.74.2
+TERM_PROGRAM=vscode
+SSH_CONNECTION=35.3.122.190 62352 141.212.106.174 22
+SSH_CLIENT=35.3.122.190 62352 22
 SNPS_VCS_CLANG_PATH=/fs/src/interfaces/LLVM_Project/QSCM/opt/llvm-3.9.1/linux64
 SCRNAME=vcs
 SCRIPT_NAME=vcs
+QT_GRAPHICSSYSTEM_CHECKED=1
+QTLIB=/usr/lib64/qt-3.3/lib
+QTINC=/usr/lib64/qt-3.3/include
+QTDIR=/usr/lib64/qt-3.3
 OVA_UUM=0
 MODULESHOME=/usr/share/Modules
-MODULEPATH=/usr/share/Modules/modulefiles:/etc/modulefiles:/usr/caen/misc/modules:/afs/umich.edu/class/coe/modules
-LSCOLORS=Gxfxcxdxbxegedabagacad
+MODULEPATH=/usr/caen/misc/modules:/afs/umich.edu/class/coe/modules
 LOADEDMODULES=vcs/2017.12-SP2-1
 LESSOPEN=||/usr/bin/lesspipe.sh %s
-LESS=-R
 LC_ALL=C
 HISTCONTROL=ignoredups
+GIT_ASKPASS=/home/jvelten/.vscode-server/bin/e8a3071ea4344d9d48ef8a4df2c097372b0c5161/extensions/git/dist/askpass.sh
+COLORTERM=truecolor
+BASH_FUNC_module()=() {  eval `/usr/bin/modulecmd bash $*`_}
 0
-3
-1590715611 tff.v
-1590715991 tff_tb.v
-1590715623 sys_defs.vh
+2
+1669142098 tff_wadden_buggy1.v
+1669142098 tff_tb.v
 5
 0 
 1531625631 /usr/caen/vcs-2017.12-SP2-1/linux64/lib/libvirsim.so
 1531624898 /usr/caen/vcs-2017.12-SP2-1/linux64/lib/liberrorinf.so
 1531624871 /usr/caen/vcs-2017.12-SP2-1/linux64/lib/libsnpsmalloc.so
 1531625298 /usr/caen/vcs-2017.12-SP2-1/linux64/lib/libvfs.so
-1590716003 simv.daidir
+1672848866 simv.daidir

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type= "text/css" href="../static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1 id = "title">{{title}}</h1>
+        </div>
+        <div class = "row">
+        <div class = "col-5">
+            <form action =`${title}` method = "post">
+                <button class = "btn btn-success"><a href = "{{next}}">Next</a></button>
+                <div class = "form-group" style = "overflow-y: auto; height: 500px">
+                    {% set lines = line_tuple|map(attribute='0')|list %}
+                    {% set imp_lines = line_tuple|selectattr('1', '==', 1)|map(attribute='0')|list %}
+                    {% for line in lines %}
+                        {% if line in imp_lines %}
+                            <div class="implicated">
+                                <input class="text" type="text"  style = "background-color: #FFFF00; color: black" value="{{ line }}" contenteditable="true">
+                            </div>
+                        {% else %}
+                            <div>
+                                <input class="text" type="text" value="{{ line }}" contenteditable="true">
+                            </div>
+                    {% endif %}
+                {% endfor %}
+                <input class="text" type="text" contenteditable="true">
+                <input class="text" type="text" contenteditable="true">
+                <input class="text" type="text" contenteditable="true">
+                <input class="text" type="text" contenteditable="true">
+                <input class="text" type="text" contenteditable="true">
+                <input class="text" type="text" contenteditable="true">
+                <input class="text" type="text" contenteditable="true">
+                </div>
+                <button class = "btn btn-primary" id = "content-reload" type = "submit" method = "post" style = "margin-top: 5%">Submit</button>
+            </form> 
+        </div>
+        <div class = "col-7">
+            {% if title == "/wadden_buggy1" %}
+            <img src = "../static/first_counter_overflow_wadden_buggy1.png">
+            {% endif %}
+            {% if title == "/kgoliya_buggy1" %}
+            <img src = "../static/first_counter_overflow_kgoliya_buggy1.png">
+            {% endif %}
+            {% if title == "/fsm_full_wadden_buggy1" %}
+            <img src = "../static/fsm_full_wadden_buggy1.png">
+            {% endif %}
+            {% if title == "wadden_buggy2" %}
+            <img src = "../static/first_counter_overflow_wadden_buggy2.png">
+            {% endif %}
+            {% if title == "lshift_reg" %}
+            <img src = "../static/lshift_reg_wadden_buggy1.png">
+            {% endif %}
+        </div>
+    </div>
+    </div>
+</body>
+</html>
+
+
+<script type="text/javascript" >
+    const form = document.querySelector('form');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    // Collect the values of the input fields
+    const inputs = document.querySelectorAll('input');
+    const inputValues = Array.from(inputs).map(input => input.value);
+    const title = document.getElementById("title").innerText;
+    // Send the input values as a POST request to the server
+    fetch(title, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ inputs: inputValues })
+    })
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    location.reload();
+  });
+
+  
+
+
+</script>
+
+
+

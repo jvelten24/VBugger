@@ -1,6 +1,6 @@
 psSimBaseName                      	simv
 psLogFileName                      	NULL
-pDaiDir                            	/home/hammada/projects/verilog_repair/benchmarks/flip_flop/simv.daidir
+pDaiDir                            	/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/simv.daidir
 destPath                           	csrc/
 fSharedMaster                      	0
 fHsimPCSharedLibSpecified          	0

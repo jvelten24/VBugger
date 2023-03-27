@@ -1,21 +1,15 @@
 {
-    "first_counter_tb": [
-        "first_counter_tb",
-        "yT6qN",
-        "module",
-        3
-    ],
-    "_vcs_unit__2814988370": [
-        "_vcs_unit__2814988370",
-        "MSsWC",
-        "module",
-        1
-    ],
     "std": [
         "std",
         "reYIK",
         "module",
         2
+    ],
+    "first_counter_tb": [
+        "first_counter_tb",
+        "yT6qN",
+        "module",
+        3
     ],
     "...MASTER...": [
         "SIM",
