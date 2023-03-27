@@ -28,77 +28,65 @@ def wadden_buggy1():
         return render_template("buggy_code.html", 
         title = "/wadden_buggy1", next = "/kgoliya_buggy1", line_tuple = line_tuple)    
 
-@app.get('/kgoliya_buggy1')
+@app.route('/kgoliya_buggy1', methods = ["POST", "GET"])
 def kgoliya_buggy1():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
     all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_KGOLIYA_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
-    return render_template("buggy_code.html", 
-    title = "/kgoliya_buggy1", next = "/fsm_full_wadden_buggy1", line_tuple = line_tuple)
-
-@app.post('/kgoliya_buggy1')
-def kgoliya_buggy1_post():
-    lines_to_write = request.get_json()["inputs"]
-    write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v", lines_to_write)
-    all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_KGOLIYA_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v")
-    line_tuple = implicated_tuple(all_lines, implicated_lines)
-    return render_template("buggy_code.html", 
-    title = "/kgoliya_buggy1", next = "/fsm_full_wadden_buggy1", line_tuple = line_tuple)
+    if request.method == "POST":
+        return redirect(url_for("kgoliya_buggy1"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/kgoliya_buggy1", next = "/fsm_full_wadden_buggy1", line_tuple = line_tuple)
 
 
-@app.get('/fsm_full_wadden_buggy1')
+@app.route('/fsm_full_wadden_buggy1', methods = ["POST", "GET"])
 def fsm_full_wadden_buggy():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
     all_lines, implicated_lines = run_cirfix("FSM_FULL_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
-    return render_template("buggy_code.html", 
-    title = "/fsm_full_wadden_buggy1", next = "/wadden_buggy2", line_tuple = line_tuple)
+    if request.method == "POST":
+        return redirect(url_for("fsm_full_wadden_buggy1"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/fsm_full_wadden_buggy1", next = "/wadden_buggy2", line_tuple = line_tuple)
 
-@app.post('/fsm_full_wadden_buggy1')
-def fsm_full_wadden_buggy_post():
-    lines_to_write = request.get_json()["inputs"]
-    write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v", lines_to_write)
-    #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines = run_cirfix("FSM_FULL_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v")
-    line_tuple = implicated_tuple(all_lines, implicated_lines)
-    return render_template("buggy_code.html", 
-    title = "/fsm_full_wadden_buggy1", next = "/wadden_buggy2", line_tuple = line_tuple)
 
-@app.get('/wadden_buggy2')
+@app.route('/wadden_buggy2', methods = ["POST", "GET"])
 def wadden_buggy2():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
     all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy2.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
-    return render_template("buggy_code.html", 
-    title = "/wadden_buggy2", next = "/lshift_reg_wadden_buggy1", line_tuple = line_tuple)
+    if request.method == "POST":
+        return redirect(url_for("wadden_buggy2"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/wadden_buggy2", next = "/lshift_reg_wadden_buggy1", line_tuple = line_tuple)
 
-@app.post('/wadden_buggy2')
-def wadden_buggy2_post():
-    lines_to_write = request.get_json()["inputs"]
-    write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy2.v", lines_to_write)
-    #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy2.v")
-    line_tuple = implicated_tuple(all_lines, implicated_lines)
-    return render_template("buggy_code.html", 
-    title = "/wadden_buggy2", next = "/lshift_reg_wadden_buggy1", line_tuple = line_tuple)
 
-@app.get('/lshift_reg_wadden_buggy1')
+@app.route('/lshift_reg_wadden_buggy1', methods = ["POST", "GET"])
 def lshift_reg():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
     all_lines, implicated_lines = run_cirfix("LSHIFT_REG_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
-    return render_template("buggy_code.html", 
-    title = "/lshift_reg", next = "/end", line_tuple = line_tuple)
+    if request.method == "POST":
+        return redirect(url_for("lshift_reg_wadden_buggy1"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/lshift_reg", next = "/end", line_tuple = line_tuple)
 
-@app.post('/lshift_reg_wadden_buggy1')
-def lshift_reg_post():
-    lines_to_write = request.get_json()["inputs"]
-    write_file("/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v", lines_to_write)
-    #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines = run_cirfix("LSHIFT_REG_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v")
-    line_tuple = implicated_tuple(all_lines, implicated_lines)
-    return render_template("buggy_code.html", 
-    title = "/lshift_reg", next = "/end", line_tuple = line_tuple)
 
 @app.get('/end')
 def end():

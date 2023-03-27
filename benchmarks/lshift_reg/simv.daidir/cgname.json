@@ -5,16 +5,16 @@
         "module",
         1
     ],
-    "...MASTER...": [
-        "SIM",
-        "amcQw",
-        "module",
-        3
-    ],
     "tb": [
         "tb",
         "g7hgQ",
         "module",
         2
+    ],
+    "...MASTER...": [
+        "SIM",
+        "amcQw",
+        "module",
+        3
     ]
 }

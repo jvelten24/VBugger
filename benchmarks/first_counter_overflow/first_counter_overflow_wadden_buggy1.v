@@ -31,7 +31,7 @@ reg overflow_out;
 // overflow outport
 
 //---------------Code starts here-----------
-always@(posedge clk)
+always@(clk)
 begin: COUNTER //block name
     //At every rising edge of clock we check if reset is active
     //If active, we load the counter output with 4'b0000
@@ -51,6 +51,20 @@ begin: COUNTER //block name
 end // End of block COUNTER
 
 endmodule // End of module counter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
