@@ -1,12 +1,12 @@
-from flask import Flask, render_template, send_file, request, redirect, url_for
+from flask import Flask, render_template, send_file, request, redirect, url_for, g
 import os, subprocess
+import ast
 import json
 app = Flask(__name__)
 #app.config["TEMPLATES_AUTO_RELOAD"] = True
-
 import sqlite3 as sql
 
-con = sql.connect("memoization.db")
+
 
 
 #home page
@@ -14,29 +14,6 @@ con = sql.connect("memoization.db")
 def home():
     return render_template('home.html')
 
-#so for this we essentially want to run cirfix on wadden buggy 1
-#and every time the user submits we want to rewrite the file with the 
-#code from the website
-# @app.get('/wadden_buggy1')
-# def wadden_buggy1():
-#     print("GET CALLED")
-#     #here we are taking the source file and running cirfix on it to get implicated lines
-#     all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
-#     print(implicated_lines)
-#     line_tuple = implicated_tuple(all_lines, implicated_lines)
-#     return render_template("buggy_code.html", 
-#     title = "/wadden_buggy1", next = "/kgoliya_buggy1", line_tuple = line_tuple)
-
-# @app.post('/wadden_buggy1')
-# def wadden_buggy1_post():
-#     lines_to_write = request.get_json()["inputs"]
-#     print(lines_to_write)
-#     write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v", lines_to_write)
-#     all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
-#     print(implicated_lines)
-#     line_tuple = implicated_tuple(all_lines, implicated_lines)
-#     return render_template("buggy_code.html", 
-#     title = "/wadden_buggy1", next = "/kgoliya_buggy1", line_tuple = line_tuple)
 
 @app.route('/wadden_buggy1', methods = ["POST", "GET"])
 def wadden_buggy1():
@@ -151,20 +128,59 @@ def implicated_tuple(verilog_code, implicated_lines):
     
 
 def run_cirfix(bug, source):
+    #now we get all the lines from the file
+    with open(source) as f:
+        all_lines = f.readlines()
+
+    #if we've already seen this configuration of verilog code
+    if check_data(all_lines) == True:
+        implicated_lines = fetch_implicated_lines(all_lines)
+        output = [all_lines, implicated_lines]
+        return output
     os.chdir("..")
-    #get implicated lines from cirfix
     implicated_lines = subprocess.getoutput(f"python3 joshua.py {bug}")
+    os.chdir("./verilog_web")
+    store_data(all_lines, implicated_lines)
     try:
         imp_index = implicated_lines.index("IMPLICATED LINES:") + 17
         implicated_lines = implicated_lines[imp_index:]
         implicated_lines = implicated_lines.splitlines()
     except:
         implicated_lines = []
-    os.chdir("./verilog_web")
-
-    #now we get all the lines from the file
-    with open(source) as f:
-        all_lines = f.readlines()
     output = [all_lines, implicated_lines]
     return output
 
+
+
+def store_data(all_lines, implicated_lines):
+    conn = sql.connect('memoization.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO my_table (key_string, value_string) VALUES (?, ?)",
+                   (str(all_lines), str(implicated_lines)))
+    conn.commit()
+    conn.close()
+
+    return "Data stored successfully"
+
+#returns true if matching config found
+#returns false if not found
+def check_data(all_lines):
+    conn = sql.connect('memoization.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT value_string FROM my_table WHERE key_string=?", (str(all_lines),))
+    result = cursor.fetchone()
+    if result:
+        stored_value_string = result[0]
+        if stored_value_string == str(all_lines):
+            return True
+    return False
+
+def fetch_implicated_lines(all_lines):
+    conn = sql.connect('memoization.db')
+    cursor = conn.cursor()
+    key = str(all_lines)
+    query = "SELECT value_string FROM my_table WHERE key_string = ?"
+    cursor.execute(query, (key,))
+    result = cursor.fetchone()
+    implicated_lines = ast.literal_eval(result)
+    return implicated_lines
