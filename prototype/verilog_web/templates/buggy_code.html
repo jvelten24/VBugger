@@ -17,7 +17,7 @@
         <div class = "col-5">
             <form action =`${title}` method = "post">
                 <button class = "btn btn-success"><a href = "{{next}}">Next</a></button>
-                <div class = "form-group" style = "overflow-y: auto; height: 500px">
+                <div class = "form-group" style = "overflow-y: auto; height: 500px;">
                     {% set lines = line_tuple|map(attribute='0')|list %}
                     {% set imp_lines = line_tuple|selectattr('1', '==', 1)|map(attribute='0')|list %}
                     {% for line in lines %}
@@ -27,7 +27,7 @@
                             </div>
                         {% else %}
                             <div>
-                                <input class="text" type="text" value="{{ line }}" contenteditable="true">
+                                <input class="text" type="text" value="{{ line }}" contenteditable="true"  style = "background-color: rgb(66,69,73);">
                             </div>
                     {% endif %}
                 {% endfor %}
@@ -43,19 +43,19 @@
             </form> 
         </div>
         <div class = "col-7">
-            {% if title == "/wadden_buggy1" %}
+            {% if title == "/counter1" %}
             <img src = "../static/first_counter_overflow_wadden_buggy1.png">
             {% endif %}
-            {% if title == "/kgoliya_buggy1" %}
+            {% if title == "/counter2" %}
             <img src = "../static/first_counter_overflow_kgoliya_buggy1.png">
             {% endif %}
-            {% if title == "/fsm_full_wadden_buggy1" %}
+            {% if title == "/finite_state_machine1" %}
             <img src = "../static/fsm_full_wadden_buggy1.png">
             {% endif %}
-            {% if title == "/wadden_buggy2" %}
+            {% if title == "/counter3" %}
             <img src = "../static/first_counter_overflow_wadden_buggy2.png">
             {% endif %}
-            {% if title == "/lshift_reg" %}
+            {% if title == "/left_shift_register1" %}
             <img src = "../static/lshift_reg_wadden_buggy1.png">
             {% endif %}
         </div>
@@ -80,13 +80,11 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ inputs: inputValues })
     })
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 1500));
     location.reload();
   });
 
-  
 
-  console.log("hi")
 </script>
 
 
