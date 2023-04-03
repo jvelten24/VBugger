@@ -4,9 +4,11 @@
     flex-direction: column;
 }
 
-h1{
+.title_fitness{
     padding: 20px 20px 20px 0;
     color: rgba(245, 245, 245, 0.8);
+    display: flex;
+    align-items: flex-end;
 }
 
 label {

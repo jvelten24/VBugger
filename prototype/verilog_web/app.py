@@ -19,14 +19,14 @@ def wadden_buggy1():
     if request.method == "POST":
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v", lines_to_write)
-    all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
+    all_lines, implicated_lines, fitness_score = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     
     if request.method == "POST":
-        return redirect(url_for("counter1"))
+        return redirect("/counter1")
     else:
         return render_template("buggy_code.html", 
-        title = "/counter1", next = "/counter2", line_tuple = line_tuple)    
+        title = "/counter1", next = "/counter2", line_tuple = line_tuple, fitness_score = fitness_score)    
 
 
 #kgoliya_buggy1
@@ -90,6 +90,8 @@ def lshift_reg():
         title = "/left_shift_register1", next = "/end", line_tuple = line_tuple)
 
 
+
+
 @app.get('/end')
 def end():
     return render_template("end.html")
@@ -107,9 +109,9 @@ def implicated_tuple(verilog_code, implicated_lines):
         implicated_lines[i] = implicated_lines[i].strip()
     for line in verilog_code:
         if line.strip() in implicated_lines and line != '\n':
-            line_tuple.append((line, 1))
+            line_tuple.append([line, 1])
         else:
-            line_tuple.append((line, 0))
+            line_tuple.append([line, 0])
     return line_tuple
 
     
@@ -120,17 +122,18 @@ def run_cirfix(bug, source):
         all_lines = f.readlines()
 
     #if we've already seen this configuration of verilog code
-    if check_data(all_lines) == True:
-        implicated_lines = fetch_implicated_lines(all_lines)
-        output = [all_lines, implicated_lines]
-        print("MEMOIZATION")
+    # if check_data(all_lines) == True:
+    #     implicated_lines = fetch_implicated_lines(all_lines)
+    #     output = [all_lines, implicated_lines]
         
-        return output
+        
+    #     return output
     os.chdir("..")
     #also get fitness score
     #will be zero when theres compilation error 
 
     implicated_lines = subprocess.getoutput(f"python3 joshua.py {bug}")
+    fitness_score = implicated_lines
     os.chdir("./verilog_web")
     try:
         imp_index = implicated_lines.index("IMPLICATED LINES:") + 17
@@ -142,9 +145,10 @@ def run_cirfix(bug, source):
     #^ will occur when fitness score is zero and there are no implicated lines
     except:
         implicated_lines = []
-    store_data(all_lines, implicated_lines)
-    output = [all_lines, implicated_lines]
-    print("NO MEMOIZATION")
+    fitness_index = fitness_score.index("Fitness = ")
+    fitness_score = fitness_score[fitness_index + 10: fitness_index + 18]
+    # store_data(all_lines, implicated_lines)
+    output = [all_lines, implicated_lines, fitness_score]
     return output
 
 

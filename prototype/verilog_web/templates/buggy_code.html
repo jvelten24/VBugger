@@ -10,55 +10,64 @@
 </head>
 <body>
     <div class="container">
-        <div>
-            <h1 id = "title">{{title}}</h1>
+        <div class = "row title_fitness">
+            <div class = "col-5">
+                <h1 id = "title">{{title}}</h1>
+            </div>
+            <div class="col-4">
+                <h2>fitness score: {{fitness_score}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col5">
+                <button class = "btn btn-success"><a href = "{{next}}">Next</a></button>
+            </div>
         </div>
         <div class = "row">
-        <div class = "col-5">
-            <form action =`${title}` method = "post">
-                <button class = "btn btn-success"><a href = "{{next}}">Next</a></button>
-                <div class = "form-group" style = "overflow-y: auto; height: 500px;">
-                    {% set lines = line_tuple|map(attribute='0')|list %}
-                    {% set imp_lines = line_tuple|selectattr('1', '==', 1)|map(attribute='0')|list %}
-                    {% for line in lines %}
-                        {% if line in imp_lines %}
-                            <div class="implicated">
-                                <input class="text" type="text"  style = "background-color: #FFFF00; color: black" value="{{ line }}" contenteditable="true">
-                            </div>
-                        {% else %}
-                            <div>
-                                <input class="text" type="text" value="{{ line }}" contenteditable="true"  style = "background-color: rgb(66,69,73);">
-                            </div>
-                    {% endif %}
-                {% endfor %}
-                <input class="text" type="text" contenteditable="true">
-                <input class="text" type="text" contenteditable="true">
-                <input class="text" type="text" contenteditable="true">
-                <input class="text" type="text" contenteditable="true">
-                <input class="text" type="text" contenteditable="true">
-                <input class="text" type="text" contenteditable="true">
-                <input class="text" type="text" contenteditable="true">
-                </div>
-                <button class = "btn btn-primary" id = "content-reload" type = "submit" method = "post" style = "margin-top: 5%">Submit</button>
-            </form> 
-        </div>
-        <div class = "col-7">
-            {% if title == "/counter1" %}
-            <img src = "../static/first_counter_overflow_wadden_buggy1.png">
-            {% endif %}
-            {% if title == "/counter2" %}
-            <img src = "../static/first_counter_overflow_kgoliya_buggy1.png">
-            {% endif %}
-            {% if title == "/finite_state_machine1" %}
-            <img src = "../static/fsm_full_wadden_buggy1.png">
-            {% endif %}
-            {% if title == "/counter3" %}
-            <img src = "../static/first_counter_overflow_wadden_buggy2.png">
-            {% endif %}
-            {% if title == "/left_shift_register1" %}
-            <img src = "../static/lshift_reg_wadden_buggy1.png">
-            {% endif %}
-        </div>
+            <div class = "col-5">
+                <form action =`${title}` method = "post">
+                    <div class = "form-group" style = "overflow-y: auto; height: 500px;">
+                        {% set lines = line_tuple|map(attribute='0')|list %}
+                        {% set imp_lines = line_tuple|selectattr('1', '==', 1)|map(attribute='0')|list %}
+                        {% for line in lines %}
+                            {% if line in imp_lines %}
+                                <div class="implicated">
+                                    <input class="text" type="text"  style = "background-color: #FFFF00; color: black" value="{{ line }}" contenteditable="true">
+                                </div>
+                            {% else %}
+                                <div>
+                                    <input class="text" type="text" value="{{ line }}" contenteditable="true"  style = "background-color: rgb(66,69,73);">
+                                </div>
+                        {% endif %}
+                    {% endfor %}
+                    <input class="text" type="text" contenteditable="true">
+                    <input class="text" type="text" contenteditable="true">
+                    <input class="text" type="text" contenteditable="true">
+                    <input class="text" type="text" contenteditable="true">
+                    <input class="text" type="text" contenteditable="true">
+                    <input class="text" type="text" contenteditable="true">
+                    <input class="text" type="text" contenteditable="true">
+                    </div>
+                    <button class = "btn btn-primary" id = "content-reload" type = "submit" method = "post" style = "margin-top: 5%">Submit</button>
+                </form> 
+            </div>
+            <div class = "col-7">
+                {% if title == "/counter1" %}
+                <img src = "../static/first_counter_overflow_wadden_buggy1.png">
+                {% endif %}
+                {% if title == "/counter2" %}
+                <img src = "../static/first_counter_overflow_kgoliya_buggy1.png">
+                {% endif %}
+                {% if title == "/finite_state_machine1" %}
+                <img src = "../static/fsm_full_wadden_buggy1.png">
+                {% endif %}
+                {% if title == "/counter3" %}
+                <img src = "../static/first_counter_overflow_wadden_buggy2.png">
+                {% endif %}
+                {% if title == "/left_shift_register1" %}
+                <img src = "../static/lshift_reg_wadden_buggy1.png">
+                {% endif %}
+            </div>
     </div>
     </div>
 </body>

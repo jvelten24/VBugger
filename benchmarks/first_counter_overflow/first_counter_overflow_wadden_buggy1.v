@@ -35,10 +35,10 @@ always@(posedge clk)
 begin: COUNTER //block name
     //At every rising edge of clock we check if reset is active
     //If active, we load the counter output with 4'b0000
-    
-     
-
-
+    if(reset==1'b1) begin
+        counter_out <= #1 4'b0000;
+        overflow_out <= #1 1'b0;
+    end
     //If enable is active, we increment the counter
     else if(enable == 1'b1) begin
        counter_out <= #1 counter_out + 1;
@@ -51,55 +51,6 @@ begin: COUNTER //block name
 end // End of block COUNTER
 
 endmodule // End of module counter
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
