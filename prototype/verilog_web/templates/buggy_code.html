@@ -15,7 +15,12 @@
                 <h1 id = "title">{{title}}</h1>
             </div>
             <div class="col-4">
-                <h2>fitness score: {{fitness_score}}</h2>
+                {% if syntax_error == True %}
+                    <h2 style = "background-color: red">fitness_score: {{ fitness_score }}</h2>
+                {% else %}
+                <h2>fitness_score: {{ fitness_score }}</h2>
+                {% endif %}
+                
             </div>
         </div>
         <div class="row">
@@ -92,7 +97,6 @@
     await new Promise(resolve => setTimeout(resolve, 1500));
     location.reload();
   });
-
 
 </script>
 

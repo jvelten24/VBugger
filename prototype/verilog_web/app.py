@@ -5,6 +5,14 @@ import json
 app = Flask(__name__)
 #app.config["TEMPLATES_AUTO_RELOAD"] = True
 import sqlite3 as sql
+from datetime import datetime
+
+#TO DELETE CONTENTS OF CONSENT FORM
+# conn = sql.connect("memoization.db")
+# cursor = conn.cursor()
+# cursor.execute("DELETE FROM consent_form")
+# conn.commit()
+# conn.close()
 
 
 
@@ -13,20 +21,30 @@ import sqlite3 as sql
 def home():
     return render_template('home2.html')
 
+@app.post("/consent")
+def consent():
+    name = request.form['name']
+    date = request.form['date']
+    timestamp = datetime.now()
+    number = find_current_count()
+    number += 1
+    file_consent_form(number, name, date, timestamp)
+    return redirect("/counter1")
+
 
 @app.route('/counter1', methods = ["POST", "GET"])
 def wadden_buggy1():
     if request.method == "POST":
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v", lines_to_write)
-    all_lines, implicated_lines, fitness_score = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
+    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     
     if request.method == "POST":
         return redirect("/counter1")
     else:
         return render_template("buggy_code.html", 
-        title = "/counter1", next = "/counter2", line_tuple = line_tuple, fitness_score = fitness_score)    
+        title = "/counter1", next = "/counter2", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)    
 
 
 #kgoliya_buggy1
@@ -36,13 +54,13 @@ def kgoliya_buggy1():
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_KGOLIYA_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v")
+    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FIRST_COUNTER_OVERFLOW_KGOLIYA_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     if request.method == "POST":
         return redirect(url_for("counter2"))
     else:
         return render_template("buggy_code.html", 
-        title = "/counter2", next = "/finite_state_machine1", line_tuple = line_tuple)
+        title = "/counter2", next = "/finite_state_machine1", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)
 
 #fsm_full_wadden_buggy1
 @app.route('/finite_state_machine1', methods = ["POST", "GET"])
@@ -51,13 +69,13 @@ def fsm_full_wadden_buggy():
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines = run_cirfix("FSM_FULL_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v")
+    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FSM_FULL_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     if request.method == "POST":
         return redirect(url_for("finite_state_machine1"))
     else:
         return render_template("buggy_code.html", 
-        title = "/finite_state_machine1", next = "/counter3", line_tuple = line_tuple)
+        title = "/finite_state_machine1", next = "/counter3", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)
 
 #first_counter_overflow_wadden_buggy2
 @app.route('/counter3', methods = ["POST", "GET"])
@@ -66,13 +84,13 @@ def wadden_buggy2():
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy2.v")
+    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy2.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     if request.method == "POST":
         return redirect(url_for("counter3"))
     else:
         return render_template("buggy_code.html", 
-        title = "/counter3", next = "/lshift_reg1", line_tuple = line_tuple)
+        title = "/counter3", next = "/lshift_reg1", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)
 
 #lshift_reg_wadden_buggy1
 @app.route('/left_shift_register1', methods = ["POST", "GET"])
@@ -81,15 +99,13 @@ def lshift_reg():
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines = run_cirfix("LSHIFT_REG_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v")
+    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("LSHIFT_REG_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     if request.method == "POST":
         return redirect(url_for("left_shift_register1"))
     else:
         return render_template("buggy_code.html", 
-        title = "/left_shift_register1", next = "/end", line_tuple = line_tuple)
-
-
+        title = "/left_shift_register1", next = "/end", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)
 
 
 @app.get('/end')
@@ -139,16 +155,21 @@ def run_cirfix(bug, source):
         imp_index = implicated_lines.index("IMPLICATED LINES:") + 17
         implicated_lines = implicated_lines[imp_index:]
         implicated_lines = implicated_lines.splitlines()
-    #split into two cases:
-    #nothing implicated so no lines returned
-    #compilation error - we should make this known on the front end
-    #^ will occur when fitness score is zero and there are no implicated lines
     except:
         implicated_lines = []
-    fitness_index = fitness_score.index("Fitness = ")
-    fitness_score = fitness_score[fitness_index + 10: fitness_index + 18]
+    
+    try:
+        fitness_index = fitness_score.index("Fitness = ")
+        fitness_score = fitness_score[fitness_index + 10: fitness_index + 18]
+    except:
+        fitness_score == "0.000000"
+
+    if fitness_score == "0.000000" and implicated_lines == []:
+        syntax_error = True
+    else:
+        syntax_error = False
     # store_data(all_lines, implicated_lines)
-    output = [all_lines, implicated_lines, fitness_score]
+    output = [all_lines, implicated_lines, fitness_score, syntax_error]
     return output
 
 
@@ -183,3 +204,27 @@ def fetch_implicated_lines(all_lines):
     result = cursor.fetchone()
     implicated_lines = eval(result[0])
     return implicated_lines
+
+def find_current_count():
+    conn = sql.connect('memoization.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT MAX(number) FROM consent_form")
+    number = cursor.fetchone()[0]
+    print("PRINTING NUMBER")
+    print(number)
+    print("END")
+    if number is not None:
+        result = number
+    else:
+        result = 0
+    cursor.close()
+    conn.close()
+    return result
+
+def file_consent_form(number, name, date, timestamp):
+    conn = sql.connect('memoization.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO consent_form (number, name, date, timestamp) VALUES (?, ?, ?, ?)",
+                   (number, str(name), str(date), str(timestamp)))
+    conn.commit()
+    conn.close()

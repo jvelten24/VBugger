@@ -46,17 +46,17 @@
         </p>
         <p style = "color: black">I understand what the study is about and my questions so far have been answered. I agree to take part in this study. 
         </p>
-        <form style = "padding: 0 0 10% 0; color: black;">
+        <form style = "padding: 0 0 10% 0; color: black;" method = "POST" action = "/consent">
             <div class="form-group">
             
                 <label for="Name" style = "color: black;">Print Legal Name</label>
-                <input type="email" class="form-control" id="Name">
+                <input type="text" class="form-control" id="Name" name = "name">
                 <label for="Date" style = "color: black;">Date</label>
-                <input type="email" class="form-control" id="Date"> 
+                <input type="text" class="form-control" id="Date" name = "date"> 
             </div> 
             <br>
             <div style = "display: flex; justify-content: center;">
-            <button class = "btn btn-primary">Submit</button>
+            <button class = "btn btn-primary" type = "submit">Submit</button>
             </div> 
         </form>
 
@@ -66,3 +66,11 @@
     
 </body>
 </html>
+
+
+<script type="text/javascript" >
+
+
+
+
+</script>
