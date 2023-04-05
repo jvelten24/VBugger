@@ -86,6 +86,91 @@ LSHIFT_REG_WADDEN_BUGGY1 = {
     'oracle': "/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/oracle.txt"
 }
 
+
+DECODER_WADDEN_BUGGY1 = {
+    'src_file': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/decoder_3_to_8_wadden_buggy1.v",
+    'test_bench': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/decoder_3_to_8_tb_t1.v",
+    'eval_script': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/run.sh",
+    'orig_file': "decoder_3_to_8.v",
+    'proj_dir': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/",
+    'oracle': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/oracle.txt"
+}
+
+DECODER_WADDEN_BUGGY2 = {
+    'src_file': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/decoder_3_to_8_wadden_buggy2.v",
+    'test_bench': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/decoder_3_to_8_tb_t1.v",
+    'eval_script': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/run.sh",
+    'orig_file': "decoder_3_to_8.v",
+    'proj_dir': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/",
+    'oracle': "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/oracle.txt"
+}
+
+FLIP_FLOP_WADDEN_BUGGY1 = {
+    'src_file': "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/tff_wadden_buggy1.v",
+    'test_bench': "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/tff_tb.v",
+    'eval_script': "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/run.sh",
+    'orig_file': "tff.v",
+    'proj_dir': "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop",
+    'oracle': '/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/oracle.txt'
+}
+
+FLIP_FLOP_WADDEN_BUGGY2 = {
+    'src_file': "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/tff_wadden_buggy2.v",
+    'test_bench': "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/tff_tb.v",
+    'eval_script': "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/run.sh",
+    'orig_file': "tff.v",
+    'proj_dir': "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop",
+    'oracle': '/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/oracle.txt'
+}
+
+FSM_FULL_WADDEN_BUGGY2 = {
+    'src_file': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy2.v',
+    'test_bench': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_tb_t1.v',
+    'eval_script': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/run.sh',
+    'orig_file': 'fsm_full.v',
+    'proj_dir': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/',
+    'oracle': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/oracle.txt'
+}
+
+FSM_FULL_SSSCRAZY_BUGGY1 = {
+    'src_file': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_ssscrazy_buggy1.v',
+    'test_bench': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_tb_t1.v',
+    'eval_script': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/run.sh',
+    'orig_file': 'fsm_full.v',
+    'proj_dir': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/',
+    'oracle': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/oracle.txt'
+}
+
+FSM_FULL_SSSCRAZY_BUGGY2 = {
+    'src_file': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_ssscrazy_buggy2.v',
+    'test_bench': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_tb_t1.v',
+    'eval_script': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/run.sh',
+    'orig_file': 'fsm_full.v',
+    'proj_dir': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/',
+    'oracle': '/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/oracle.txt'
+}
+
+MUX_WADDEN_BUGGY1 = {
+    'src_file': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/mux_4_1_wadden_buggy1.v',
+    'test_bench': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/mux_4_1_tb.v',
+    'eval_script': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/run.sh',
+    'orig_file': 'mux_4_1.v',
+    'proj_dir': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/',
+    'oracle': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/oracle_new.txt'
+}
+
+
+MUX_WADDEN_BUGGY2 = {
+    'src_file': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/mux_4_1_wadden_buggy2.v',
+    'test_bench': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/mux_4_1_tb.v',
+    'eval_script': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/run.sh',
+    'orig_file': 'mux_4_1.v',
+    'proj_dir': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/',
+    'oracle': '/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/oracle_new.txt'
+}
+
+
+
 #we will be using this inside of main to get access to all the absolute paths
 #to the files we need
 conf = {
@@ -93,7 +178,16 @@ conf = {
     "FIRST_COUNTER_OVERFLOW_KGOLIYA_BUGGY1": FIRST_COUNTER_OVERFLOW_KGOLIYA_BUGGY1,
     "FSM_FULL_WADDEN_BUGGY1": FSM_FULL_WADDEN_BUGGY1,
     "FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY2": FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY2,
-    "LSHIFT_REG_WADDEN_BUGGY1": LSHIFT_REG_WADDEN_BUGGY1 
+    "LSHIFT_REG_WADDEN_BUGGY1": LSHIFT_REG_WADDEN_BUGGY1 ,
+    "DECODER_WADDEN_BUGGY1": DECODER_WADDEN_BUGGY1,
+    "DECODER_WADDEN_BUGGY2": DECODER_WADDEN_BUGGY2,
+    "FLIP_FLOP_WADDEN_BUGGY1": FLIP_FLOP_WADDEN_BUGGY1,
+    "FLIP_FLOP_WADDEN_BUGGY2": FLIP_FLOP_WADDEN_BUGGY2,
+    "FSM_FULL_WADDEN_BUGGY2": FSM_FULL_WADDEN_BUGGY2,
+    "FSM_FULL_SSSCRAZY_BUGGY1": FSM_FULL_SSSCRAZY_BUGGY1,
+    "FSM_FULL_SSSCRAZY_BUGGY2": FSM_FULL_SSSCRAZY_BUGGY2,
+    "MUX_WADDEN_BUGGY1": MUX_WADDEN_BUGGY1,
+    "MUX_WADDEN_BUGGY2": MUX_WADDEN_BUGGY2
 }
 
 

@@ -37,14 +37,14 @@ def wadden_buggy1():
     if request.method == "POST":
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v", lines_to_write)
-    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
+    all_lines, implicated_lines, fitness_score = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     
     if request.method == "POST":
         return redirect("/counter1")
     else:
         return render_template("buggy_code.html", 
-        title = "/counter1", next = "/counter2", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)    
+        title = "/counter1", next = "/counter2", line_tuple = line_tuple, fitness_score = fitness_score)    
 
 
 #kgoliya_buggy1
@@ -54,28 +54,28 @@ def kgoliya_buggy1():
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FIRST_COUNTER_OVERFLOW_KGOLIYA_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v")
+    all_lines, implicated_lines, fitness_score = run_cirfix("FIRST_COUNTER_OVERFLOW_KGOLIYA_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_kgoliya_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     if request.method == "POST":
         return redirect(url_for("counter2"))
     else:
         return render_template("buggy_code.html", 
-        title = "/counter2", next = "/finite_state_machine1", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)
+        title = "/counter2", next = "/finite_state_machine1", line_tuple = line_tuple, fitness_score = fitness_score)
 
 #fsm_full_wadden_buggy1
 @app.route('/finite_state_machine1', methods = ["POST", "GET"])
-def fsm_full_wadden_buggy():
+def fsm_full_wadden_buggy1():
     if request.method == "POST":
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FSM_FULL_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v")
+    all_lines, implicated_lines, fitness_score = run_cirfix("FSM_FULL_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     if request.method == "POST":
         return redirect(url_for("finite_state_machine1"))
     else:
         return render_template("buggy_code.html", 
-        title = "/finite_state_machine1", next = "/counter3", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)
+        title = "/finite_state_machine1", next = "/counter3", line_tuple = line_tuple, fitness_score = fitness_score)
 
 #first_counter_overflow_wadden_buggy2
 @app.route('/counter3', methods = ["POST", "GET"])
@@ -84,28 +84,165 @@ def wadden_buggy2():
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy2.v")
+    all_lines, implicated_lines, fitness_score = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy2.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     if request.method == "POST":
         return redirect(url_for("counter3"))
     else:
         return render_template("buggy_code.html", 
-        title = "/counter3", next = "/lshift_reg1", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)
+        title = "/counter3", next = "/left_shift_register1", line_tuple = line_tuple, fitness_score = fitness_score)
 
 #lshift_reg_wadden_buggy1
 @app.route('/left_shift_register1', methods = ["POST", "GET"])
-def lshift_reg():
+def lshift_reg1():
     if request.method == "POST":
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v", lines_to_write)
     #here we are taking the source file and running cirfix on it to get implicated lines
-    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("LSHIFT_REG_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v")
+    all_lines, implicated_lines, fitness_score = run_cirfix("LSHIFT_REG_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/lshift_reg/lshift_reg_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     if request.method == "POST":
         return redirect(url_for("left_shift_register1"))
     else:
         return render_template("buggy_code.html", 
-        title = "/left_shift_register1", next = "/end", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)
+        title = "/left_shift_register1", next = "/decoder1", line_tuple = line_tuple, fitness_score = fitness_score)
+
+
+#decoder_3_to_8_wadden_buggy1
+@app.route('/decoder1', methods = ["POST", "GET"])
+def decoder2():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/decoder_3_to_8_wadden_buggy1.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("DECODER_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/decoder_3_to_8_wadden_buggy1.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("decoder1"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/decoder1", next = "/decoder2", line_tuple = line_tuple, fitness_score = fitness_score)
+
+#decoder_3_to_8_wadden_buggy2
+@app.route('/decoder2', methods = ["POST", "GET"])
+def decoder3():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/decoder_3_to_8_wadden_buggy2.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("DECODER_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8/decoder_3_to_8_wadden_buggy2.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("decoder2"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/decoder2", next = "/flip_flop1", line_tuple = line_tuple, fitness_score = fitness_score)
+
+
+#flip_flop_wadden_buggy1
+@app.route('/flip_flop1', methods = ["POST", "GET"])
+def flip_flop1():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/tff_wadden_buggy1.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("FLIP_FLOP_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/tff_wadden_buggy1.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("flip_flop1"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/flip_flop1", next = "/flip_flop2", line_tuple = line_tuple, fitness_score = fitness_score)
+
+#flip_flop_wadden_buggy2
+@app.route('/flip_flop2', methods = ["POST", "GET"])
+def flip_flop2():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/tff_wadden_buggy2.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("FLIP_FLOP_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/flip_flop/tff_wadden_buggy2.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("flip_flop2"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/flip_flop2", next = "/end", line_tuple = line_tuple, fitness_score = fitness_score)
+
+#fsm_full_wadden_buggy2
+@app.route('/finite_state_machine2', methods = ["POST", "GET"])
+def fsm_full_wadden_buggy2():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy2.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("FSM_FULL_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_wadden_buggy2.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("finite_state_machine2"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/finite_state_machine2", next = "/finite_state_machine3", line_tuple = line_tuple, fitness_score = fitness_score)
+
+#fsm_full_ssscrazy_buggy1
+@app.route('/finite_state_machine3', methods = ["POST", "GET"])
+def fsm_full_ssscrazy_buggy1():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_ssscrazy_buggy1.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("FSM_FULL_SSSCRAZY_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_ssscrazy_buggy1.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("finite_state_machine3"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/finite_state_machine3", next = "/finite_state_machine4", line_tuple = line_tuple, fitness_score = fitness_score)
+
+#fsm_full_ssscrazy_buggy2
+@app.route('/finite_state_machine4', methods = ["POST", "GET"])
+def fsm_full_ssscrazy_buggy2():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_ssscrazy_buggy2.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("FSM_FULL_SSSCRAZY_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/fsm_full/fsm_full_ssscrazy_buggy2.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("finite_state_machine4"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/finite_state_machine4", next = "/multiplexer1", line_tuple = line_tuple, fitness_score = fitness_score)
+
+#mux_wadden_buggy1
+@app.route('/multiplexer1', methods = ["POST", "GET"])
+def mux_wadden_buggy1():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/mux_4_1_wadden_buggy1.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("MUX_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/mux_4_1_wadden_buggy1.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("multiplexer1"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/multiplexer1", next = "/multiplexer2", line_tuple = line_tuple, fitness_score = fitness_score)
+
+#mux_wadden_buggy2
+@app.route('/multiplexer2', methods = ["POST", "GET"])
+def mux_wadden_buggy2():
+    if request.method == "POST":
+        lines_to_write = request.get_json()["inputs"]
+        write_file("/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/mux_4_1_wadden_buggy2.v", lines_to_write)
+    #here we are taking the source file and running cirfix on it to get implicated lines
+    all_lines, implicated_lines, fitness_score = run_cirfix("MUX_WADDEN_BUGGY2", "/home/jvelten/projects/verilog_repair/benchmarks/mux_4_1/mux_4_1_wadden_buggy2.v")
+    line_tuple = implicated_tuple(all_lines, implicated_lines)
+    if request.method == "POST":
+        return redirect(url_for("multiplexer2"))
+    else:
+        return render_template("buggy_code.html", 
+        title = "/multiplexer2", next = "/end", line_tuple = line_tuple, fitness_score = fitness_score)
 
 
 @app.get('/end')
@@ -158,18 +295,16 @@ def run_cirfix(bug, source):
     except:
         implicated_lines = []
     
+
+    #replace this with whats in your research doc
     try:
         fitness_index = fitness_score.index("Fitness = ")
         fitness_score = fitness_score[fitness_index + 10: fitness_index + 18]
     except:
         fitness_score == "0.000000"
 
-    if fitness_score == "0.000000" and implicated_lines == []:
-        syntax_error = True
-    else:
-        syntax_error = False
     # store_data(all_lines, implicated_lines)
-    output = [all_lines, implicated_lines, fitness_score, syntax_error]
+    output = [all_lines, implicated_lines, fitness_score]
     return output
 
 

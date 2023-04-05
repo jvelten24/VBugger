@@ -1,5 +1,5 @@
 0 
-29
+28
 +vc
 -Mamsrun=
 -Masflags=
@@ -26,16 +26,19 @@
 -picarchive
 -sverilog
 /usr/caen/vcs-2017.12-SP2-1/linux64/bin/vcs1
-decoder_3_to_8.v
-decoder_3_to_8_tb.v
-sys_defs.vh
-29
-sysc_uni_pwd=/home/hammada/projects/verilog_repair/benchmarks/decoder_3_to_8
+decoder_3_to_8_tb_t1.v
+decoder_3_to_8_wadden_buggy1.v
+46
+sysc_uni_pwd=/home/jvelten/projects/verilog_repair/benchmarks/decoder_3_to_8
 _LMFILES_=/usr/caen/misc/modules/vcs/2017.12-SP2-1
-ZSH=/home/hammada/.oh-my-zsh
-XDG_SESSION_ID=9681
-XDG_RUNTIME_DIR=/run/user/1001
-XDG_DATA_DIRS=/home/hammada/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+XDG_SESSION_ID=8244
+XDG_RUNTIME_DIR=/run/user/25165
+XDG_DATA_DIRS=/home/jvelten/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+VSCODE_IPC_HOOK_CLI=/run/user/25165/vscode-ipc-cfc2cca5-5562-459d-be96-ff3a6ecb2fe1.sock
+VSCODE_GIT_IPC_HANDLE=/run/user/25165/vscode-git-4911e6a4db.sock
+VSCODE_GIT_ASKPASS_NODE=/home/jvelten/.vscode-server/bin/7f329fe6c66b0f86ae1574c2911b681ad5a45d63/node
+VSCODE_GIT_ASKPASS_MAIN=/home/jvelten/.vscode-server/bin/7f329fe6c66b0f86ae1574c2911b681ad5a45d63/extensions/git/dist/askpass-main.js
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
 VMR_MODE_FLAG=64
 VCS_MODE_FLAG=64
 VCS_HOME=/usr/caen/vcs-2017.12-SP2-1
@@ -44,30 +47,42 @@ VCS_ARG_ADDED_FOR_TMP=1
 VCS_ARCH=linux64
 UNAME=/bin/uname
 TOOL_HOME=/usr/caen/vcs-2017.12-SP2-1/linux64
-SSH_TTY=/dev/pts/0
-SSH_CONNECTION=68.49.109.47 36784 141.212.106.158 22
-SSH_CLIENT=68.49.109.47 36784 22
+TERM_PROGRAM_VERSION=1.77.0
+TERM_PROGRAM=vscode
+SSH_CONNECTION=35.3.183.237 58017 141.212.106.174 22
+SSH_CLIENT=35.3.183.237 58017 22
 SNPS_VCS_CLANG_PATH=/fs/src/interfaces/LLVM_Project/QSCM/opt/llvm-3.9.1/linux64
+SELINUX_USE_CURRENT_RANGE=
+SELINUX_ROLE_REQUESTED=
+SELINUX_LEVEL_REQUESTED=
 SCRNAME=vcs
 SCRIPT_NAME=vcs
+QT_GRAPHICSSYSTEM_CHECKED=1
+QTLIB=/usr/lib64/qt-3.3/lib
+QTINC=/usr/lib64/qt-3.3/include
+QTDIR=/usr/lib64/qt-3.3
 OVA_UUM=0
+NVM_RC_VERSION=
+NVM_DIR=/home/jvelten/.nvm
+NVM_CD_FLAGS=
 MODULESHOME=/usr/share/Modules
-MODULEPATH=/usr/share/Modules/modulefiles:/etc/modulefiles:/usr/caen/misc/modules:/afs/umich.edu/class/coe/modules
-LSCOLORS=Gxfxcxdxbxegedabagacad
+MODULEPATH=/usr/caen/misc/modules:/afs/umich.edu/class/coe/modules
 LOADEDMODULES=vcs/2017.12-SP2-1
 LESSOPEN=||/usr/bin/lesspipe.sh %s
-LESS=-R
 LC_ALL=C
 HISTCONTROL=ignoredups
+GIT_ASKPASS=/home/jvelten/.vscode-server/bin/7f329fe6c66b0f86ae1574c2911b681ad5a45d63/extensions/git/dist/askpass.sh
+FLASK_RUN_FROM_CLI=true
+COLORTERM=truecolor
+BASH_FUNC_module()=() {  eval `/usr/bin/modulecmd bash $*`_}
 0
-3
-1590715452 decoder_3_to_8.v
-1590715452 decoder_3_to_8_tb.v
-1590715495 sys_defs.vh
+2
+1669142098 decoder_3_to_8_wadden_buggy1.v
+1669142098 decoder_3_to_8_tb_t1.v
 5
 0 
 1531625631 /usr/caen/vcs-2017.12-SP2-1/linux64/lib/libvirsim.so
 1531624898 /usr/caen/vcs-2017.12-SP2-1/linux64/lib/liberrorinf.so
 1531624871 /usr/caen/vcs-2017.12-SP2-1/linux64/lib/libsnpsmalloc.so
 1531625298 /usr/caen/vcs-2017.12-SP2-1/linux64/lib/libvfs.so
-1590715510 simv.daidir
+1680662080 simv.daidir
