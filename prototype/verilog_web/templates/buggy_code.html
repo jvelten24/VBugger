@@ -14,14 +14,20 @@
             <div class = "col-5">
                 <h1 id = "title">{{title}}</h1>
             </div>
+            {% if syntax_error %}
             <div class="col-4">
-                {% if syntax_error == True %}
-                    <h2 style = "background-color: red">fitness_score: {{ fitness_score }}</h2>
-                {% else %}
                 <h2>fitness_score: {{ fitness_score }}</h2>
-                {% endif %}
-                
             </div>
+            <div class = "col-3">
+                <h2>Syntax Error!</h2>
+            </div>
+            {% else %}
+            <div class = "col-4">
+                <h2>fitness_score: {{ fitness_score }}</h2>
+            </div>
+            {% endif %}
+                
+            
         </div>
         <div class="row">
             <div class="col5">

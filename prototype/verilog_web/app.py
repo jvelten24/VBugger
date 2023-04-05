@@ -37,14 +37,14 @@ def wadden_buggy1():
     if request.method == "POST":
         lines_to_write = request.get_json()["inputs"]
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v", lines_to_write)
-    all_lines, implicated_lines, fitness_score = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
+    all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
     line_tuple = implicated_tuple(all_lines, implicated_lines)
     
     if request.method == "POST":
         return redirect("/counter1")
     else:
         return render_template("buggy_code.html", 
-        title = "/counter1", next = "/counter2", line_tuple = line_tuple, fitness_score = fitness_score)    
+        title = "/counter1", next = "/counter2", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)    
 
 
 #kgoliya_buggy1
@@ -286,7 +286,7 @@ def run_cirfix(bug, source):
     #will be zero when theres compilation error 
 
     implicated_lines = subprocess.getoutput(f"python3 joshua.py {bug}")
-    fitness_score = implicated_lines
+    fitness = implicated_lines
     os.chdir("./verilog_web")
     try:
         imp_index = implicated_lines.index("IMPLICATED LINES:") + 17
@@ -295,16 +295,18 @@ def run_cirfix(bug, source):
     except:
         implicated_lines = []
     
-
+    if ("Syntax error" in fitness):
+        syntax_error = True
+        fitness_score = "0.000000"
+    else:
+        syntax_error = False
+        fitness_index = fitness.index("Fitness = ")
+        fitness_score = fitness[fitness_index + 10: fitness_index + 18]
     #replace this with whats in your research doc
-    try:
-        fitness_index = fitness_score.index("Fitness = ")
-        fitness_score = fitness_score[fitness_index + 10: fitness_index + 18]
-    except:
-        fitness_score == "0.000000"
+    print(fitness_score)
 
     # store_data(all_lines, implicated_lines)
-    output = [all_lines, implicated_lines, fitness_score]
+    output = [all_lines, implicated_lines, fitness_score, syntax_error]
     return output
 
 
