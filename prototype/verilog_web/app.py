@@ -16,10 +16,21 @@ from datetime import datetime
 
 
 
+#what do i need to do:
+#figure out how to take the innertext from editor.js and send it to the flask backend
+#at the right route handler
+#then write it to the file as usual
+#rerun cirfix
+#also on the frontend take the implicated line numbers, and usign javascript
+#highlight the correct lines
+#then update all routes to handle this
+#delete redundant code such as the tuple thing
+
+
 #home page
-@app.route("/")
+@app.route("/", methods = ["POST", "GET"])
 def home():
-    return render_template('home2.html')
+    return render_template("home2.html")
 
 @app.post("/consent")
 def consent():
@@ -35,16 +46,18 @@ def consent():
 @app.route('/counter1', methods = ["POST", "GET"])
 def wadden_buggy1():
     if request.method == "POST":
-        lines_to_write = request.get_json()["inputs"]
+        print("2\n")
+        lines_to_write = request.get_json()["text"].split('\n')
         write_file("/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v", lines_to_write)
     all_lines, implicated_lines, fitness_score, syntax_error = run_cirfix("FIRST_COUNTER_OVERFLOW_WADDEN_BUGGY1", "/home/jvelten/projects/verilog_repair/benchmarks/first_counter_overflow/first_counter_overflow_wadden_buggy1.v")
-    line_tuple = implicated_tuple(all_lines, implicated_lines)
-    
+    print(implicated_lines)
     if request.method == "POST":
+        print("1\n")
         return redirect("/counter1")
     else:
-        return render_template("buggy_code.html", 
-        title = "/counter1", next = "/counter2", line_tuple = line_tuple, fitness_score = fitness_score, syntax_error = syntax_error)    
+        all_lines = [s.strip() for s in all_lines]
+        return render_template("buggy_code2.html", 
+        title = "/counter1", next = "/counter2", fitness_score = fitness_score, syntax_error = syntax_error, all_lines = all_lines)    
 
 
 #kgoliya_buggy1
@@ -289,9 +302,9 @@ def run_cirfix(bug, source):
     fitness = implicated_lines
     os.chdir("./verilog_web")
     try:
-        imp_index = implicated_lines.index("IMPLICATED LINES:") + 17
+        imp_index = implicated_lines.index("IMPLICATED LINE NUMBERS:") + 24
         implicated_lines = implicated_lines[imp_index:]
-        implicated_lines = implicated_lines.splitlines()
+        implicated_lines = eval(implicated_lines)
     except:
         implicated_lines = []
     
