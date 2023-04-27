@@ -700,7 +700,7 @@ def main():
     mutation_op.collect_lines_for_fl(ast)
     mutation_op.get_implicated_lines(ast)
     mutation_op.print_implicated_lines(mutation_op.implicated_lines, src_code)
-
+    print("IMPLICATED LINE NUMBERS: ", list(mutation_op.implicated_lines))
 
 
 
